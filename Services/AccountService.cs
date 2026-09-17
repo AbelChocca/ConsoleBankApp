@@ -19,7 +19,9 @@ public class AccountService : IAccountService
         decimal amount
     )
     {
-        source.Withdraw(amount);
-        destination.Deposit(amount);
+        source.TransferOut(amount);
+        destination.TransferIn(amount);
     }
+
+    
 }
