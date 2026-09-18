@@ -52,5 +52,13 @@ internal class Program
         Console.WriteLine("=== RECENT TRANSACTIONS - ACCOUNT 2 ===");
 
         account2.PrintRecentTransactions(10);
+
+        Console.WriteLine("=== RECENT NOTIFICATIONS - ACCOUNT 1 ===");
+
+        account1.PrintRecentNotifications(10);
+
+        Console.WriteLine("=== RECENT NOTIFICATIONS - ACCOUNT 2 ===");
+
+        account2.PrintRecentNotifications(10);
     }
 }
