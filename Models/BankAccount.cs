@@ -5,11 +5,13 @@ namespace ConsoleBankingApp.Models;
 public class BankAccount
 {
     private readonly List<Transaction> _transactions = [];
+    private readonly List<Notification> _notifications = [];
     public Guid Id { get;}
     public string AccountNumber {get;}
     public decimal Balance {get; private set; }
 
     public IReadOnlyCollection<Transaction> Transactions => _transactions.AsReadOnly();
+    public IReadOnlyCollection<Notification> Notifications => _notifications.AsReadOnly();
 
     public BankAccount(string accountNumber)
     {
@@ -31,6 +33,10 @@ public class BankAccount
         _transactions.Add(
             new Transaction(amount, TransactionType.Deposit)
         );      
+
+        _notifications.Add(
+            new Notification("Nuevo Deposito", "Tu deposito fue realizado con exito.")
+        );
     }
 
     public void Withdraw(decimal amount)
@@ -45,6 +51,10 @@ public class BankAccount
 
         _transactions.Add(
             new Transaction(amount, TransactionType.Withdrawal)
+        );
+
+        _notifications.Add(
+            new Notification("Nuevo retiro", "Su retiro se ha realizado correctamente.")
         );
     }
 
@@ -61,6 +71,10 @@ public class BankAccount
         _transactions.Add(
             new Transaction(amount, TransactionType.TransferOut)
         );
+
+        _notifications.Add(
+            new Notification("Ha realizado una transferencia con exito!")
+        );
     }
 
     public void TransferIn(decimal amount)
@@ -72,6 +86,10 @@ public class BankAccount
 
         _transactions.Add(
             new Transaction(amount, TransactionType.TransferIn)
+        );
+
+        _notifications.Add(
+            new Notification("Nueva entrada de transferencia.")
         );
     }
 
@@ -127,6 +145,14 @@ public class BankAccount
         foreach(Transaction transaction in GetRecentTransactions(topK))
         {
             Console.WriteLine($"{transaction.Type} - {transaction.Amount} - {transaction.CreatedAt}");
+        }
+    }
+
+    public void PrintRecentNotifications(int topK = 5)
+    {
+        for (int i = 0; i<_notifications.Count; i++)
+        {
+            _notifications[i].PrintNotification();
         }
     }
 }
